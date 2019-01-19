@@ -107,13 +107,12 @@ window.requestAnimationFrame(render);
 
 
 function checkCollision () {
-	
 	//Snake Collisions
 	for(var i=1; i < snake.length; i++){ //Start at "i=1" so you don't check the snake's head against itself!
 		//If the snake's head hit any part of its body Game Over...
 		if(snake[0].x == snake[i].x && snake[0].y == snake[i].y){
-			console.log('Gameover!');
-			window.location.reload(true);
+			restart();
+			break; //Escape from the collision loop because we just reset the game. If we don't, we'd get an error...
 		}
 		
 		//If the food spawns inside the snake's tail, move it!
@@ -125,11 +124,11 @@ function checkCollision () {
 	
 	//Wall Collisions
 	if (snake[0].x < 0 || snake[0].y < 0){
-		window.location.reload(true);
+		restart();
 	}
 
 	if (snake[0].x >= canvas.width || snake[0].y >= canvas.height){
-		window.location.reload(true);
+		restart();
 	}
 	
 	//Food Collision
@@ -169,15 +168,22 @@ window.addEventListener('resize', function() {
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
 	
-	//Move the food and snake inside of the new window size!
-	snake[0].x = canvas.width/2;
-	snake[0].y = canvas.height/2;
-	
-	food.x = randomRange(0, canvas.width-10);
-	food.y = randomRange(0, canvas.height-10);
+	//Restart the game inside of the new window size!
+	restart();
 }, false);
 
-
+function restart() {
+	snake = []; //Empty the snake array.
+	snake.push( {x:canvas.width/2, y:canvas.height/2} ); //Fill it with the default.
+	snake.push( {x:-10, y:-10} );
+	snake.push( {x:-10, y:-10} );
+	
+	direction = 0;
+	moveTimer = 0;
+	
+	food.x = randomRange(0, canvas.width-10); //Reset food.
+	food.y = randomRange(0, canvas.height-10);
+}
 
 //Round to a ten pixel grid...
 function roundToGrid(numb) {
