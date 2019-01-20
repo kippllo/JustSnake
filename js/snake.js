@@ -51,7 +51,7 @@ var moveTimerMax = 100; //100;
 var lastTimestamp = Date.now();
 var deltaTime; //dt in milliseconds.
 
-function render (){
+function update (){
 	//Update Delta Time...
 	deltaTime =  Date.now() - lastTimestamp;
 	lastTimestamp = Date.now();
@@ -98,11 +98,11 @@ function render (){
 		drawBox(snake[i].x, snake[i].y, 10);
 	}
 
-	// Setup recursion for the render function by calling it in the "requestAnimationFrame".
-	window.requestAnimationFrame(render);
+	// Setup recursion for the update function by calling it in the "requestAnimationFrame".
+	window.requestAnimationFrame(update);
 }
 // Call the animation frame, start the recursion...
-window.requestAnimationFrame(render);
+window.requestAnimationFrame(update);
 
 
 
