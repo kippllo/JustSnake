@@ -12,7 +12,7 @@ canvas.focus();
 
 
 // ------------------System Functions-----------------
-function drawBox(x, y, size){//, color){
+function drawBox(x, y, size){
 	draw2D.beginPath();
 	draw2D.rect(x, y, size, size);
 	draw2D.fillStyle = 'rgb(255,255,255)'; //color;
